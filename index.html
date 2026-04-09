@@ -228,6 +228,10 @@
     .config-layout, .summary-layout {
       display: grid; gap: var(--space-5); grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
     }
+    .config-layout > div {
+      display: grid;
+      gap: var(--space-5);
+    }
     .field-grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .field { display: grid; gap: var(--space-2); }
     .field.full { grid-column: 1 / -1; }
@@ -239,6 +243,20 @@
       color: var(--color-text); border-radius: var(--radius-lg); padding: 0.95rem 1rem;
     }
     .field textarea { min-height: 128px; resize: vertical; }
+    .field-label-group { display: grid; gap: 0.15rem; }
+    .field-help,
+    .field-warning {
+      font-size: var(--text-xs);
+      line-height: 1.4;
+      margin: 0;
+    }
+    .field-help {
+      color: var(--color-text-muted);
+    }
+    .field-warning {
+      color: var(--color-primary);
+      margin-top: 0.35rem;
+    }
 
     .option-list { display: grid; gap: var(--space-3); }
     .option {
@@ -387,9 +405,8 @@
         </div>
 
         <div class="nav-row">
-          <button class="btn btn-secondary" type="button" id="backToServices">Volver</button>
+          <button class="btn btn-secondary" type="button" id="backToServices">Atrás</button>
           <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-            <button class="btn btn-secondary" type="button" id="resetButton">Reset</button>
             <button class="btn btn-primary" type="button" id="goToSummary">Continuar</button>
           </div>
         </div>
@@ -424,6 +441,7 @@
             <div class="nav-row right" style="margin-top:1.25rem;">
               <a class="btn btn-primary" id="whatsappButton" href="#" target="_blank" rel="noopener noreferrer">Enviar resumen</a>
               <button class="btn btn-secondary" type="button" id="copySummary">Copiar resumen</button>
+              <button class="btn btn-secondary" type="button" id="resetSummary">Comenzar de nuevo</button>
               <button class="btn btn-secondary" type="button" id="backToConfig">Atrás</button>
             </div>
           </aside>
@@ -432,7 +450,7 @@
     </section>
 
     <footer class="footer">
-      "La publicidad no es un gasto, es la inversión más rentable para tu empresa." — Anónimo
+      "El contenido de calidad no es un costo, es el activo que acelera el crecimiento de tu marca."
     </footer>
   </div>
 
@@ -444,7 +462,7 @@
         id: 'short',
         name: 'Contenido corto',
         tag: 'Reels / Shorts',
-        description: 'Edición de reels, shorts y piezas verticales para marcas, creadores y campañas que necesitan captar atención rápido.',
+        description: 'Edición dinámica de alto impacto para marcas y creadores. Piezas diseñadas estratégicamente para maximizar la retención y el crecimiento orgánico.',
         priceLabel: 'Desde $45',
         basePrice: 45,
         baseDuration: 'Hasta 1 minuto',
@@ -460,16 +478,16 @@
           { value: 'urgent', label: 'Urgente — +50% · 24 horas por pieza', multiplier: 1.5, note: '24 horas por pieza' }
         ],
         addons: [
-          { id: 'subtitles', label: 'Subtítulos para redes', description: 'Mejora claridad, retención y comprensión.', price: 12 },
-          { id: 'extraFormat', label: 'Formato adicional', description: 'Versión extra para otro formato o canal.', price: 15 },
-          { id: 'thumbnail', label: 'Portada', description: 'Frame o portada para reforzar presentación.', price: 10 }
+          { id: 'subtitles', label: 'Subtítulos para redes', description: 'Subtítulos dinámicos optimizados para retener a la audiencia.', price: 12 },
+          { id: 'extraFormat', label: 'Formato adicional', description: 'Versión horizontal optimizada para YouTube o Web.', price: 15 },
+          { id: 'thumbnail', label: 'Portada', description: 'Portada personalizada para una estética profesional.', price: 10 }
         ]
       },
       {
         id: 'long',
         name: 'Contenido largo',
         tag: 'YouTube / Podcast',
-        description: 'Edición de videos largos para YouTube, entrevistas, podcasts y piezas que buscan reforzar autoridad y claridad.',
+        description: 'Narrativa visual para contenido de largo formato. Optimizamos el flujo de tus videos y podcasts para construir autoridad, profesionalismo y una conexión real con tu audiencia.',
         priceLabel: 'Desde $120',
         basePrice: 120,
         baseDuration: 'Hasta 10 minutos',
@@ -485,17 +503,17 @@
           { value: 'urgent', label: 'Urgente — +50% · 3 días por pieza', multiplier: 1.5, note: '3 días por pieza' }
         ],
         addons: [
-          { id: 'subtitles', label: 'Subtítulos completos', description: 'Más claridad y mejor reutilización del contenido.', price: 22 },
-          { id: 'audio', label: 'Limpieza de audio', description: 'Reduce ruido y mejora percepción general.', price: 18 },
-          { id: 'thumbnail', label: 'Miniatura YouTube', description: 'Diseño orientado a una mejor presentación.', price: 18 },
-          { id: 'clips', label: '2 clips promocionales', description: 'Recortes para distribución en redes.', price: 30 }
+          { id: 'subtitles', label: 'Subtítulos completos', description: 'Legibilidad perfecta para maximizar el impacto del video.', price: 22 },
+          { id: 'audio', label: 'Limpieza de audio', description: 'Eliminación de ruido y ecualización para un sonido profesional.', price: 18 },
+          { id: 'thumbnail', label: 'Miniatura YouTube', description: 'Diseño de alto impacto optimizado para mejorar el CTR.', price: 18 },
+          { id: 'clips', label: '2 clips promocionales', description: 'Extractos estratégicos optimizados para Reels, TikTok o Shorts.', price: 30 }
         ]
       },
       {
         id: 'motion',
         name: 'Motion graphics',
         tag: 'Animación',
-        description: 'Motion graphics para anuncios, lanzamientos y piezas visuales con una ejecución más premium y controlada.',
+        description: 'Animación de alto nivel para anuncios y lanzamientos. Diseño en movimiento con acabados premium que elevan la identidad visual de tu marca a un estándar profesional.',
         priceLabel: 'Desde $100',
         basePrice: 100,
         baseDuration: 'Hasta 15 segundos',
@@ -511,16 +529,16 @@
           { value: 'urgent', label: 'Urgente — +50% · 48 horas por pieza', multiplier: 1.5, note: '48 horas por pieza' }
         ],
         addons: [
-          { id: 'sound', label: 'Diseño sonoro básico', description: 'Agrega presencia y mejor acabado final.', price: 20 },
-          { id: 'versions', label: '2 versiones del concepto', description: 'Variaciones para testing o adaptaciones.', price: 35 },
-          { id: 'adaptation', label: 'Adaptación a otro formato', description: 'Ajuste para otra salida o pantalla.', price: 25 }
+          { id: 'sound', label: 'Diseño sonoro', description: 'Implementación de SFX y mezcla para una experiencia inmersiva.', price: 20 },
+          { id: 'versions', label: '2 versiones del concepto', description: 'Versiones alternativas para A/B Testing o diferentes enfoques.', price: 35 },
+          { id: 'adaptation', label: 'Adaptación a otro formato', description: 'Re-composición completa para diferentes resoluciones o plataformas.', price: 25 }
         ]
       },
       {
         id: 'other',
-        name: 'Otro servicio',
+        name: 'Soluciones avanzadas',
         tag: 'Consulta especial',
-        description: 'Solicitudes especiales como animación 3D para redes o pantallas LED, VFX, composición avanzada o proyectos para empresas y startups.',
+        description: 'Animación 3D de alta fidelidad, VFX y postproducción compleja. Proyectos a medida para empresas y startups que buscan resultados fuera de serie.',
         priceLabel: 'Consulta directa',
         custom: true
       }
@@ -547,7 +565,7 @@
     const summaryNote = document.getElementById('summaryNote');
     const whatsappButton = document.getElementById('whatsappButton');
     const copySummary = document.getElementById('copySummary');
-    const resetButton = document.getElementById('resetButton');
+    const resetSummary = document.getElementById('resetSummary');
     const backToServices = document.getElementById('backToServices');
     const backToConfig = document.getElementById('backToConfig');
     const goToSummary = document.getElementById('goToSummary');
@@ -613,8 +631,19 @@
         configFields.innerHTML = `
           <div class="field"><label for="customName">Nombre o empresa</label><input id="customName" type="text" placeholder="Ej. Startup X"></div>
           <div class="field"><label for="customBudget">Presupuesto estimado</label><input id="customBudget" type="text" placeholder="Opcional, ej. 800 USD"></div>
-          <div class="field full"><label for="customBrief">Cuéntame sobre tu proyecto</label><textarea id="customBrief" placeholder="Ej. Necesito una animación 3D para pantallas LED o una edición con VFX y composición avanzada."></textarea></div>
+          <div class="field full"><div class="field-label-group"><label for="customBrief">Cuéntame sobre tu proyecto<span style="color: var(--color-primary); margin-left: 0.25rem;">*</span></label>
+            <p id="customBriefHelp" class="field-help">Cuantos más detalles y referencias proporciones, más preciso será el resultado final.</p></div><textarea id="customBrief" placeholder="Ej. Necesito una animación 3D para pantallas LED o una edición con VFX y composición avanzada. Adjunto links de referencia (YouTube/Behance/Pinterest) para alinear expectativas."></textarea>
+            <p id="customBriefWarning" class="field-warning" style="display:none;">¿Tienes alguna referencia visual? Ayuda mucho a lograr el resultado que buscas.</p>
+          </div>
         `;
+
+        const customBriefTextarea = document.getElementById('customBrief');
+        if (customBriefTextarea) {
+          customBriefTextarea.addEventListener('input', updateCustomBriefWarning);
+          customBriefTextarea.addEventListener('change', updateCustomBriefWarning);
+          updateCustomBriefWarning();
+        }
+
         addonsList.innerHTML = '';
         return;
       }
@@ -623,10 +652,25 @@
         <div class="field"><label for="quantity">Cantidad de piezas</label><input id="quantity" type="number" min="1" max="30" value="1" inputmode="numeric"></div>
         <div class="field"><label for="duration">Duración del video</label><select id="duration">${service.durations.map(item => `<option value="${item.value}">${item.label}</option>`).join('')}</select></div>
         <div class="field"><label for="turnaround">Tiempo de entrega</label><select id="turnaround">${service.turnarounds.map(item => `<option value="${item.value}">${item.label}</option>`).join('')}</select></div>
-        <div class="field"><label for="revisions">Rondas de revisión</label><select id="revisions"><option value="1">1 revisión incluida</option><option value="2">2 revisiones (+10 USD)</option><option value="3">3 revisiones (+20 USD)</option></select></div>
+        <div class="field"><label for="revisions">Rondas de revisión</label><select id="revisions"><option value="1">1 revisión incluida por pieza</option><option value="2">2 revisiones por pieza (+10 USD proyecto completo)</option><option value="3">3 revisiones por pieza (+20 USD proyecto completo)</option></select><div id="revision-warning"></div></div>
         <div class="field"><label for="contactName">Nombre o marca</label><input id="contactName" type="text" placeholder="Ej. Studio Nova"></div>
-        <div class="field full"><label for="projectNote">Detalles del proyecto</label><textarea id="projectNote" placeholder="Ej. Busco un estilo premium, ritmo dinámico y piezas pensadas para captar atención rápido."></textarea></div>
+        <div class="field full"><div class="field-label-group"><label for="projectNote">DETALLES DEL PROYECTO<span style="color: var(--color-primary); margin-left: 0.25rem;">*</span></label>
+          <p id="projectNoteHelp" class="field-help">Cuantos más detalles y referencias proporciones, más preciso será el resultado final.</p></div>
+          <textarea id="projectNote" placeholder="Por favor, detalla: Estilo visual, tono del mensaje y adjunta links de referencia (YouTube/Behance/Pinterest) para alinear expectativas."></textarea>
+          <p id="projectNoteWarning" class="field-warning" style="display:none;">¿Tienes alguna referencia visual? Ayuda mucho a lograr el resultado que buscas.</p>
+        </div>
       `;
+
+      const quantityInput = document.getElementById('quantity');
+      const revisionsSelect = document.getElementById('revisions');
+      const projectNoteTextarea = document.getElementById('projectNote');
+      if (quantityInput) quantityInput.oninput = updateRevisionWarning;
+      if (revisionsSelect) revisionsSelect.onchange = updateRevisionWarning;
+      if (projectNoteTextarea) {
+        projectNoteTextarea.addEventListener('input', updateProjectNoteWarning);
+        projectNoteTextarea.addEventListener('change', updateProjectNoteWarning);
+        updateProjectNoteWarning();
+      }
 
       addonsList.innerHTML = service.addons.map(addon => `
         <label class="option">
@@ -640,6 +684,80 @@
           </div>
         </label>
       `).join('');
+    }
+
+    function hasReferenceLink(text) {
+      return /https?:\/\//i.test(text);
+    }
+
+    const projectNoteRequiredWarning = 'DETALLES DEL PROYECTO es obligatorio. Por favor agrega información antes de continuar.';
+    const projectNoteLinkWarning = '¿Tienes alguna referencia visual? Ayuda mucho a lograr el resultado que buscas.';
+
+    function updateProjectNoteWarning() {
+      const projectNoteTextarea = document.getElementById('projectNote');
+      const warning = document.getElementById('projectNoteWarning');
+      if (!projectNoteTextarea || !warning) return;
+
+      const text = projectNoteTextarea.value.trim();
+      const hasLink = hasReferenceLink(text);
+      warning.textContent = projectNoteLinkWarning;
+      warning.style.display = text && !hasLink ? 'block' : 'none';
+    }
+
+    function updateCustomBriefWarning() {
+      const customBriefTextarea = document.getElementById('customBrief');
+      const warning = document.getElementById('customBriefWarning');
+      if (!customBriefTextarea || !warning) return;
+
+      const text = customBriefTextarea.value.trim();
+      const hasLink = hasReferenceLink(text);
+      warning.textContent = projectNoteLinkWarning;
+      warning.style.display = text && !hasLink ? 'block' : 'none';
+    }
+
+    function validateProjectDetails() {
+      const service = getService();
+      if (!service) return false;
+
+      if (service.custom) {
+        const customBriefTextarea = document.getElementById('customBrief');
+        const warning = document.getElementById('customBriefWarning');
+        const text = customBriefTextarea?.value.trim() || '';
+        if (text) {
+          updateCustomBriefWarning();
+          return true;
+        }
+
+        if (warning) {
+          warning.textContent = projectNoteRequiredWarning;
+          warning.style.display = 'block';
+        }
+
+        if (customBriefTextarea) {
+          customBriefTextarea.focus();
+          customBriefTextarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return false;
+      }
+
+      const projectNoteTextarea = document.getElementById('projectNote');
+      const warning = document.getElementById('projectNoteWarning');
+      const text = projectNoteTextarea?.value.trim() || '';
+      if (text) {
+        updateProjectNoteWarning();
+        return true;
+      }
+
+      if (warning) {
+        warning.textContent = projectNoteRequiredWarning;
+        warning.style.display = 'block';
+      }
+
+      if (projectNoteTextarea) {
+        projectNoteTextarea.focus();
+        projectNoteTextarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return false;
     }
 
     function buildSummary() {
@@ -735,9 +853,10 @@
     setupTheme();
     backToServices.addEventListener('click', () => setStep(1));
     backToConfig.addEventListener('click', () => setStep(2));
-    resetButton.addEventListener('click', resetFlow);
+    if (resetSummary) resetSummary.addEventListener('click', resetFlow);
     goToSummary.addEventListener('click', () => {
       if (!state.selectedService) return;
+      if (!validateProjectDetails()) return;
       const ready = buildSummary();
       if (ready) setStep(3);
     });
@@ -752,6 +871,55 @@
         setTimeout(() => copySummary.textContent = 'Copiar resumen', 1800);
       }
     });
-  </script>
+  
+// AGREGADO: Warnings dinámicos por servicio
+const revisionWarnings = {
+      'short': {base: 3, extra: 4},
+      'long': {base: 2, extra: 10},
+      'motion': {base: 3, extra: 4}
+};
+
+function updateRevisionWarning() {
+  const serviceId = state.selectedService;
+  const warningDiv = document.getElementById('revision-warning');
+  if (!serviceId || !revisionWarnings[serviceId]) {
+    if (warningDiv) warningDiv.remove();
+    return;
+  }
+
+  const warn = revisionWarnings[serviceId];
+
+  const html = `
+    <div id="revision-warning" class="field full" style="background: linear-gradient(135deg, rgba(255,152,31,0.1), rgba(237,128,2,0.1)); border: 1px solid rgba(255,152,31,0.3); border-radius: var(--radius-lg); padding: var(--space-4); margin-top: var(--space-3);">
+      <div style="font-weight: 700; color: var(--color-primary); margin-bottom: var(--space-2);">⚠️ Los planes de 2 y 3 revisiones aplican para un máximo de ${warn.base} piezas. A partir de la ${warn.base + 1}ª pieza, cada revisión adicional tendrá un costo de $${warn.extra}.</div>
+    </div>
+  `;
+
+  if (warningDiv) warningDiv.outerHTML = html;
+  else {
+    const revisionsSelect = document.getElementById('revisions');
+    if (revisionsSelect) {
+      revisionsSelect.insertAdjacentHTML('afterend', html);
+    }
+  }
+}
+
+// Llamar en renderConfig y cambio de servicio
+const originalRenderConfig = renderConfig;
+renderConfig = function() {
+  originalRenderConfig();
+  updateRevisionWarning();
+};
+
+// En serviceGrid click
+serviceGrid.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-service]');
+  if (btn) {
+    state.selectedService = btn.dataset.service;
+    renderConfig();
+    setStep(2);
+  }
+});
+</script>
 </body>
 </html>
